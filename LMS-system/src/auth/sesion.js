@@ -1,10 +1,14 @@
-export function guardarSesion(usuario){
-    localStorage.setItem('sesion', JSON.stringify(usuario));
+export function guardarSesion(data) {
+  const session = Object.assign({ loggedIn: true }, data);
+  localStorage.setItem('session', JSON.stringify(session));
 }
-export function leerSesion(){
-    return JSON.parse(localStorage.getItem(usuario)) || null;
-}
- export function cerrarSesion (){
-    localStorage.removeItem('sesion');
 
- }
+export function obtenerSesion() {
+  try{
+  return JSON.parse(localStorage.getItem('session')) || null;
+} catch{ return null;}
+}
+
+export function cerrarSesion() {
+  localStorage.removeItem('session');
+}

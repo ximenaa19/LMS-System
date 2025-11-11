@@ -6,3 +6,4 @@ export function leerDato( clave){
     return JSON.parse(localStorage.getItem(clave)) || [];
 
 } 
+

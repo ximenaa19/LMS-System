@@ -1,3 +1,6 @@
+import { mostrarDocentesComoTarjetas } from "../utils/renderDocentes";
+
+
 class PublicView extends HTMLElement {
   constructor() {
     super();
@@ -5,6 +8,16 @@ class PublicView extends HTMLElement {
   }
 
   connectedCallback() {
+     this.render();
+     const contenedor = this.shadowRoot.querySelector("#docentes-container");
+     mostrarDocentesComoTarjetas(contenedor);
+
+     window.addEventListener("docentesActualizados", () => {
+      mostrarDocentesComoTarjetas(contenedor); 
+     });
+    }
+
+    render(){
     this.shadowRoot.innerHTML = `
 
     <style>
@@ -109,8 +122,8 @@ class PublicView extends HTMLElement {
         <header>
             <div class="logo"> LMS ABC</div>
             <nav>
-                <a href="#">Cursos</a>
-                <a href="#">Docentes</a>
+                <a href="#public">Cursos</a>
+                <a href="#public">Docentes</a>
                 <a href="#login" class="btn">Iniciar Sesión</a>
             </nav>
         </header>
@@ -119,7 +132,7 @@ class PublicView extends HTMLElement {
             <h1>Descubre Nuevos <br>Conocimientos <br></h1>
             <p>Explora cursos diseñados por expertos, aprende a tu ritmo <br>y alcanza tus metas. <br></p>
             <div class="hero-buttons">
-                <a href="#" class="btn">Explorar Cursos</a>
+                <a href="#public" class="btn">Explorar Cursos</a>
             </div>
         </section>
 
@@ -127,8 +140,9 @@ class PublicView extends HTMLElement {
             <h2>Cursos disponibles</h2>  
         </section>
 
-        <section id="docentes" class="grid-section">
+        <section class="grid-section">
             <h2>Nuestros Docentes</h2>
+            <div id="docentes-container"></div>
         </section>
 
         <footer>
@@ -139,5 +153,7 @@ class PublicView extends HTMLElement {
     `;
   }
 }
+
+
 
 customElements.define("public-view", PublicView);
