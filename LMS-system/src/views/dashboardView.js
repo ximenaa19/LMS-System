@@ -1,4 +1,5 @@
 import { mostrarDocentesComoTarjetas } from "../utils/renderDocentes";
+import { mostrarCursosComoTarjetas } from "../utils/renderCursos.js";
 import { cerrarSesion } from "../auth/sesion";
 export class DashboardView extends HTMLElement {
   constructor() {
@@ -15,6 +16,12 @@ export class DashboardView extends HTMLElement {
 
     this.nombreAdmin = session.nombre;
     this.render();
+    const cursosContenedor = this.shadowRoot.querySelector("#cursos-container");
+     mostrarCursosComoTarjetas(cursosContenedor);
+
+     window.addEventListener("cursosActualizados", () => {
+     mostrarCursosComoTarjetas(cursosContenedor);
+     });
 
     const contenedor = this.shadowRoot.querySelector("#docentes-container");
     mostrarDocentesComoTarjetas(contenedor);
@@ -23,7 +30,7 @@ export class DashboardView extends HTMLElement {
       mostrarDocentesComoTarjetas(contenedor); 
     });
 
-    this.shadowRoot.querySelector("#logout").addEventListener("click", () => {
+    this.shadowRoot.querySelector("#logout-buttom").addEventListener("click", () => {
       cerrarSesion();
   // reemplaza la entrada actual del historial por public
       history.replaceState(null, '', window.location.pathname + '#public');
@@ -142,13 +149,26 @@ export class DashboardView extends HTMLElement {
         }
         
         #docentes-container{
+          display: flex;
+          flex-wrap: wrap;
+          gap: 1rem;      
+          justify-content: center; 
+          padding: 1rem;
         }
+        #cursos-container{
+          display: flex;
+          flex-wrap: wrap;
+          gap: 1rem;      
+          justify-content: center; 
+          padding: 1rem;
+        }
+        
 
         .logout {
           margin-top: 2rem;
         }
 
-        .logout button {
+        #logout-buttom{
           background-color: #af0707ee;
           color: white;
           border: none;
@@ -157,8 +177,9 @@ export class DashboardView extends HTMLElement {
           cursor: pointer;
         }
 
-        .logout button:hover {
+        #logout-buttom:hover {
           background-color: #eb2a2ae7;
+          
         }
       </style>
 
@@ -176,11 +197,11 @@ export class DashboardView extends HTMLElement {
         <div class="metrics">
           <div class="metric">
             <h3>Cursos Activos</h3>
-            <p>42 (↑ 18 este mes)</p>
+            <p>6 (↑ 6 este mes)</p>
           </div>
           <div class="metric">
             <h3>Docentes</h3>
-            <p>18 (↑ 2 nuevos)</p>
+            <p>6 (↑ 1 nuevos)</p>
           </div>
           <div class="metric">
             <h3>Estudiantes</h3>
@@ -195,11 +216,17 @@ export class DashboardView extends HTMLElement {
           <button data-link="#administradores">Añadir Admin</button>
         </div>
 
+        <div id="vista-principal"></div>
+
         <h2>Docentes</h2>
         <section id="docentes-container"></section>
+      
+        <h2>Cursos disponibles</h2>  
+        <div id="cursos-container"></div>
+        
 
         <div class="logout">
-          <button id="logout">Cerrar sesión</button>
+          <button id="logout-buttom">Cerrar sesión</button>
         </div>
       </div>
     `;

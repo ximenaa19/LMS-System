@@ -1,4 +1,5 @@
 import { mostrarDocentesComoTarjetas } from "../utils/renderDocentes";
+import { mostrarCursosComoTarjetas } from "../utils/renderCursos.js";
 
 
 class PublicView extends HTMLElement {
@@ -9,6 +10,13 @@ class PublicView extends HTMLElement {
 
   connectedCallback() {
      this.render();
+     const cursosContenedor = this.shadowRoot.querySelector("#cursos-container");
+     mostrarCursosComoTarjetas(cursosContenedor);
+
+     window.addEventListener("cursosActualizados", () => {
+     mostrarCursosComoTarjetas(cursosContenedor);
+     });
+
      const contenedor = this.shadowRoot.querySelector("#docentes-container");
      mostrarDocentesComoTarjetas(contenedor);
 
@@ -107,6 +115,21 @@ class PublicView extends HTMLElement {
         font-family:'Segoe UI', sans-serif;
 
         }
+        #docentes-container{
+        display: flex;
+        flex-wrap: wrap; 
+        gap: 1rem;       
+        justify-content: center; 
+        padding: 1rem;
+        }
+        
+        #cursos-container{
+          display: flex;
+          flex-wrap: wrap;
+          gap: 1rem;      
+          justify-content: center; 
+          padding: 1rem;
+        }
 
         footer {
         font-family:'Segoe UI', sans-serif;
@@ -138,6 +161,7 @@ class PublicView extends HTMLElement {
 
         <section id="cursos" class="grid-section">
             <h2>Cursos disponibles</h2>  
+            <div id="cursos-container"></div>
         </section>
 
         <section class="grid-section">

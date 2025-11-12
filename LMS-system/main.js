@@ -5,6 +5,10 @@ import './src/views/administradoresView.js';
 import './src/views/cursosView.js';
 import './src/views/docentesView.js';
 import './src/components/docenteCard.js';
+import './src/views/modulosViews.js';
+import './src/components/cursoCard.js';
+import './src/views/leccionesViews.js';
+
 
 import { routes } from './src/utils/router.js';
 import { obtenerSesion } from './src/auth/sesion.js';
@@ -39,6 +43,27 @@ function render(route) {
     root.innerHTML = '<h2>Ruta no encontrada</h2>';
   }
 }
+function renderConParametros(path) {
+  const [route, query] = path.split('?');
+  const tagName = routes[route];
+  root.innerHTML = '';
+
+  if (route === 'modulos' && query?.startsWith('cursoId=')) {
+    const cursoId = query.split('=')[1];
+    const vista = document.createElement('modulos-view');
+    vista.setAttribute('curso-id', cursoId);
+    root.appendChild(vista);
+    return;
+  }
+
+  // Si no es una ruta con parámetros, usa el render normal
+  if (tagName) {
+    root.appendChild(document.createElement(tagName));
+  } else {
+    root.innerHTML = '<h2>Ruta no encontrada</h2>';
+  }
+}
+
 
 function resolveRoute() {
   let path = window.location.hash.replace('#', '') || 'public';
@@ -53,12 +78,14 @@ function resolveRoute() {
     return;
   }
 
-  if (!routes[path]) {
+  const [routeBase] = path.split('?');
+  if (!routes[routeBase]) {
     window.location.hash = '#public';
     return;
   }
 
-  render(path);
+
+  renderConParametros(path);
 }
 
 inicializarDatos();

@@ -5,5 +5,9 @@ export const routes = {
   cursos:'cursos-view',
   docentes: 'docentes-view',
   administradores: 'administradores-view',
+  modulos: 'modulos-view',
+  lecciones: "lecciones-view",
+
+
   
 };

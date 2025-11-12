@@ -16,6 +16,76 @@ export class DocentesView extends HTMLElement {
 
   render() {
     this.innerHTML = `
+      <style>
+    h2 {
+      font-family: 'Segoe UI', sans-serif;
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      color: #333;
+    }
+
+    form {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    input, select, button {
+      padding: 0.6rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+
+    button {
+      background-color: #8106f5;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #5e04b3;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    th, td {
+      padding: 0.8rem;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f3f1f7;
+      color: #333;
+    }
+
+    td button {
+      margin-right: 0.5rem;
+      padding: 0.4rem 0.6rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      background-color: #8106f5;
+      color: white;
+    }
+
+    td button.eliminar {
+      background-color: #d9534f;
+    }
+
+    td button:hover {
+      opacity: 0.9;
+    }
+  </style>
       <h2>Gestión de Docentes</h2>
       <form id="form-docente">
         <input id="codigo" placeholder="Código" required />
@@ -24,11 +94,7 @@ export class DocentesView extends HTMLElement {
         <input id="apellidos" placeholder="Apellidos" required />
         <input id="email" placeholder="Correo" required />
         <input id="foto" placeholder="URL de la foto" />
-        <select id="area">
-          <option value="Biología">Biología</option>
-          <option value="Informática">Informática</option>
-          <option value="Matemáticas">Matemáticas</option>
-        </select>
+        <input id="area"  placeholder="Área de especialidad" required />
         <button type="submit">Guardar</button>
       </form>
       <table id="tabla-docentes">
