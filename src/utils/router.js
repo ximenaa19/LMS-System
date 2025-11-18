@@ -7,6 +7,7 @@ export const routes = {
   administradores: 'administradores-view',
   modulos: 'modulos-view',
   lecciones: "lecciones-view",
+  estudiantes: 'estudiantes-view'
 
 
   

@@ -8,6 +8,8 @@ import './src/components/docenteCard.js';
 import './src/views/modulosViews.js';
 import './src/components/cursoCard.js';
 import './src/views/leccionesViews.js';
+import './src/views/estudiantesView.js';
+import './src/components/estudianteCard.js';
 
 
 import { routes } from './src/utils/router.js';
